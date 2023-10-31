@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6E6FA"
-    android:padding="16dp"
+
     tools:context=".AboutFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,6 +12,14 @@
 
 
     <!-- En-tête de la page -->
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#E6E6FA"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +35,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bienvenue dans notre boutique en ligne d'objets anciens. Nous sommes passionnés par la préservation de l'histoire à travers des objets anciens de grande valeur. Notre objectif est de vous offrir une expérience unique pour découvrir et acheter des trésors du passé."
+        android:text="Bienvenue dans notre boutique en ligne d'objets anciens. Nous sommes passionnés par la préservation de l'histoire à travers des objets anciens de grande valeur. Notre objectif est de vous offrir une expérience unique pour découvrir, vendre et acheter des trésors du passé.."
         android:textSize="18sp"
     android:textColor="#333333"
     android:layout_marginTop="24dp"
@@ -60,7 +67,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email : contact@votreentreprise.com"
+        android:text="Email : contact@antik.com"
         android:textSize="18sp"
     android:textColor="#333333"
     android:layout_gravity="center"
@@ -70,7 +77,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Téléphone : +33 123 456 789"
+        android:text="Téléphone : +216 72 456 789"
         android:textSize="18sp"
     android:layout_gravity="center"
     android:layout_marginTop="16dp"
@@ -78,5 +85,6 @@
 
 
 
+    </LinearLayout>
 
     </FrameLayout>

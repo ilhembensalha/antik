@@ -3,12 +3,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6E6FA"
+    android:padding="16dp"
     tools:context=".AboutFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+
+
+
+    <!-- En-tête de la page -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="À Propos de Nous"
+        android:textSize="28sp"
+    android:textColor="#6200EA"
+    android:layout_gravity="center"
+    android:layout_marginTop="32dp"
+    android:fontFamily="sans-serif-medium"
+    />
+
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="Bienvenue dans notre boutique en ligne d'objets anciens. Nous sommes passionnés par la préservation de l'histoire à travers des objets anciens de grande valeur. Notre objectif est de vous offrir une expérience unique pour découvrir et acheter des trésors du passé."
+        android:textSize="18sp"
+    android:textColor="#333333"
+    android:layout_marginTop="24dp"
+    android:lineSpacingMultiplier="1.4"
+    />
 
-</FrameLayout>
+    <!-- Photo de l'équipe avec une bordure arrondie -->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:src="@drawable/lavender_round"
+        android:layout_marginTop="32dp"
+
+    />
+
+    <!-- Coordonnées de contact -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contactez-nous :"
+        android:textSize="24sp"
+    android:textColor="#6200EA"
+    android:layout_gravity="center"
+    android:layout_marginTop="32dp"
+    android:fontFamily="sans-serif-medium"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email : contact@votreentreprise.com"
+        android:textSize="18sp"
+    android:textColor="#333333"
+    android:layout_gravity="center"
+    android:layout_marginTop="16dp"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Téléphone : +33 123 456 789"
+        android:textSize="18sp"
+    android:layout_gravity="center"
+    android:layout_marginTop="16dp"
+    />
+
+
+
+
+    </FrameLayout>

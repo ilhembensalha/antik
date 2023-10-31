@@ -6,9 +6,55 @@
     tools:context=".SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#E6E6FA">
+    <!-- Titre de la page de paramètres -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paramètres"
+        android:textSize="28sp"
+    android:textColor="#6200EA"
+    android:layout_gravity="center"
+    android:layout_marginTop="32dp"
+    android:fontFamily="sans-serif-medium"
+    />
 
-</FrameLayout>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Activer les notifications"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:layout_marginTop="24dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+
+    <!-- Bouton de sauvegarde -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sauvegarder"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+    android:background="#6200EA"
+    android:layout_gravity="center"
+    android:layout_marginTop="24dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    />
+
+
+</LinearLayout>
+
+
+
+    </FrameLayout>

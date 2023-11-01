@@ -43,7 +43,7 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lion Fischer"
+                    android:text="Slim Ben Salha"
                     android:layout_marginTop="16dp"
                     android:textSize="25sp"
                     android:textStyle="bold"
@@ -56,7 +56,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="lionfischer@gmail.com"
+                    android:text="bensalha@gmail.com"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@+id/textView"
                     app:layout_constraintStart_toStartOf="@+id/textView"
@@ -83,7 +83,7 @@
                         android:drawableStart="@drawable/ic_1"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="My Reviews"
+                        android:text="My announcement"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         style="@android:style/Widget.Button"
@@ -139,7 +139,7 @@
                         android:paddingStart="20dp"
                         android:text="Notification"
                         android:textAlignment="viewStart" />
-                    <androidx.appcompat.widget.AppCompatButton
+                <!--    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button5"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -155,7 +155,7 @@
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
                         android:text="Fingerprint Settings"
-                        android:textAlignment="viewStart" />
+                        android:textAlignment="viewStart" />-->
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="match_parent"
                         android:layout_height="60dp"

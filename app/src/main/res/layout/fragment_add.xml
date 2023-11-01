@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="24dp"
+        android:background="@drawable/custom_edittext">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Créer  nouvelle annonce"
+        android:id="@+id/loginText"
+        android:textSize="36sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@color/lavender"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/titre"
+        android:background="@drawable/custom_edittext"
+        android:layout_marginTop="30dp"
+        android:paddingTop="10dp"
+        android:hint="Nom du produit"
+        android:padding="15dp"
+        android:textColor="@color/purple_500"
+        android:drawablePadding="8dp"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/description"
+        android:background="@drawable/custom_edittext"
+        android:layout_marginTop="20dp"
+         android:lines="10"
+        android:paddingTop="15dp"
+        android:hint="décrivez votre produit"
+        android:padding="15dp"
+        android:inputType="textMultiLine"
+        android:textColor="@color/purple_500"
+        android:drawablePadding="8dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/prix"
+            android:background="@drawable/custom_edittext"
+            android:layout_marginTop="20dp"
+            android:inputType="textPassword"
+            android:paddingTop="15dp"
+            android:hint="prix"
+            android:padding="15dp"
+            android:textColor="@color/purple_500"
+            android:drawablePadding="8dp"/>
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/localisation"
+            android:background="@drawable/custom_edittext"
+            android:layout_marginTop="20dp"
+            android:inputType="textPassword"
+            android:paddingTop="15dp"
+            android:hint="ou se trouve ce produit?"
+            android:padding="15dp"
+            android:textColor="@color/purple_500"
+            android:drawablePadding="8dp"/>
+        <AutoCompleteTextView
+            android:id="@+id/categorie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sélectionnez la catégorie du produit"
+            android:completionThreshold="1"
+            android:layout_marginTop="30dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/livraison"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="livraison disponible oui ou Non?"
+            android:completionThreshold="1"
+            android:layout_marginTop="30dp" />
+        <Button
+            android:id="@+id/chooseImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_margin="15dp"
+            android:text="Ajouter l'image du produit"
+            android:layout_gravity="center" />
+
+
+        <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Confirmer"
+        android:id="@+id/Confirmer"
+        android:textSize="18sp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/lavender"
+        app:cornerRadius = "20dp"
+        />
+
+    </LinearLayout>
+    </ScrollView>
+</FrameLayout>

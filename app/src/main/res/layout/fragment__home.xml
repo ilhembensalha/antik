@@ -81,11 +81,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:padding="@dimen/xsmall"
-                        android:src="@drawable/star_clr" />
+                    <!--  <ImageView
+                          android:layout_width="20dp"
+                          android:layout_height="20dp"
+                          android:padding="@dimen/xsmall"
+                          android:src="@drawable/star_clr" />
+
+                      <ImageView
+                          android:layout_width="20dp"
+                          android:layout_height="20dp"
+                          android:padding="@dimen/xsmall"
+                          android:src="@drawable/star_clr" />
 
                     <ImageView
                         android:layout_width="20dp"
@@ -103,18 +109,12 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:padding="@dimen/xsmall"
-                        android:src="@drawable/star_clr" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:padding="@dimen/xsmall"
-                        android:src="@drawable/star_grey" />
+                        android:src="@drawable/star_grey" />-->
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="249 Review"
+                        android:text="19/06/2023"
                         android:textColor="@color/textColor"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="$90"
+                android:text="90 dt"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 

@@ -10,20 +10,20 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Android Knowledge"
+        android:layout_width="262dp"
+        android:layout_height="71dp"
+        android:text="Antika.Com"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textSize="40dp"
+        android:textStyle="bold" />
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="contact@androidknowledge.com"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"/>  -->
 
 </LinearLayout>

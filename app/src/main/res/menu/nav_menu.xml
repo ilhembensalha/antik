@@ -11,11 +11,15 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/nav_home"
             android:title="Home"/>
-
+           <item
+               android:id="@+id/nav_add"
+               android:title="Add Announcement"
+               android:icon="@drawable/add"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/nav_settings_foreground"
             android:title="Settings"/>
+
 
         <item
             android:id="@+id/nav_share"

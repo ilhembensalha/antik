@@ -36,38 +36,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bienvenue dans notre boutique en ligne d'objets anciens. Nous sommes passionnés par la préservation de l'histoire à travers des objets anciens de grande valeur. Notre objectif est de vous offrir une expérience unique pour découvrir, vendre et acheter des trésors du passé.."
-        android:textSize="18sp"
+        android:textSize="15sp"
     android:textColor="#333333"
     android:layout_marginTop="24dp"
     android:lineSpacingMultiplier="1.4"
     />
 
     <!-- Photo de l'équipe avec une bordure arrondie -->
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/lavender_round"
-        android:layout_marginTop="32dp"
 
-    />
+        <!-- Coordonnées de contact -->
 
-    <!-- Coordonnées de contact -->
-    <TextView
+        <ImageView
+            android:layout_width="183dp"
+            android:layout_height="172dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/lavender_round"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Contactez-nous :"
+            android:textColor="#6200EA"
+            android:textSize="24sp" />
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contactez-nous :"
-        android:textSize="24sp"
-    android:textColor="#6200EA"
-    android:layout_gravity="center"
-    android:layout_marginTop="32dp"
-    android:fontFamily="sans-serif-medium"
-    />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email : contact@antik.com"
+        android:text="Email : contact@antika.com"
         android:textSize="18sp"
     android:textColor="#333333"
     android:layout_gravity="center"

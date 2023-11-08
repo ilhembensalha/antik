@@ -1,5 +1,6 @@
 package com.example.antik;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +30,7 @@ public class Signup extends AppCompatActivity {
     private Button signupButton;
     private TextView signinButton;
     private String email, password;
-    private String serverUrl = "http://10.0.2.2:3000"; // Remplacez par l'URL de votre serveur
+    private String serverUrl = "http://192.168.1.113:8000/"; // Remplacez par l'URL de votre serveur
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,30 +65,39 @@ public class Signup extends AppCompatActivity {
         });
     }
 
+    // ...
+
     private void registerUser(String email, String password) {
         try {
             JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("username", email);
+            jsonRequest.put("name", "John Doe"); // Vous devez également envoyer un nom.
+            jsonRequest.put("email", email);
             jsonRequest.put("password", password);
 
-            // Créez une demande HTTP (POST) vers le serveur
-            StringRequest request = new StringRequest(Request.Method.POST, serverUrl + "/signup",
+            // Créez une demande HTTP (POST) vers le serveur pour l'inscription
+            StringRequest request = new StringRequest(Request.Method.POST, serverUrl + "api/register", // Utilisez la route d'inscription
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // Gérez la réponse du serveur ici (inscription réussie ou échec)
-                            if (response.equals("Inscription réussie")) {
-                                Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Signup.this, signinn.class));
-                            } else {
-                                Toast.makeText(Signup.this, "Erreur d'inscription", Toast.LENGTH_LONG).show();
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                if (jsonResponse.has("success")) {
+                                    Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Signup.this, signinn.class));
+                                } else if (jsonResponse.has("error")) {
+                                    Toast.makeText(Signup.this, jsonResponse.getString("error"), Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(Signup.this, "Erreur de connexion au serveur "+error.getMessage()+"", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Signup.this, "Erreur de connexion au serveur: " + error.getMessage(), Toast.LENGTH_LONG).show();
+
                         }
                     }
             ) {
@@ -109,5 +119,7 @@ public class Signup extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+// ...
+
 
 }

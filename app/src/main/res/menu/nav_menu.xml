@@ -14,7 +14,7 @@
            <item
                android:id="@+id/nav_add"
                android:title="Add Announcement"
-               android:icon="@drawable/add"/>
+               android:icon="@drawable/nav_about"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/nav_settings_foreground"

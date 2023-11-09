@@ -30,7 +30,7 @@ public class Signup extends AppCompatActivity {
     private Button signupButton;
     private TextView signinButton;
     private String email, password;
-    private String serverUrl = "http://192.168.1.113:8000/"; // Remplacez par l'URL de votre serveur
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,57 +68,50 @@ public class Signup extends AppCompatActivity {
     // ...
 
     private void registerUser(String email, String password) {
-        try {
-            JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("name", "John Doe"); // Vous devez également envoyer un nom.
-            jsonRequest.put("email", email);
-            jsonRequest.put("password", password);
+        // Create a HashMap for the parameters
+        final HashMap<String, String> params = new HashMap<>();
+        params.put("name", "ilhem");
+        params.put("email", email);
+        params.put("password", password);
 
-            // Créez une demande HTTP (POST) vers le serveur pour l'inscription
-            StringRequest request = new StringRequest(Request.Method.POST, serverUrl + "api/register", // Utilisez la route d'inscription
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // Gérez la réponse du serveur ici (inscription réussie ou échec)
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                if (jsonResponse.has("success")) {
-                                    Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(Signup.this, signinn.class));
-                                } else if (jsonResponse.has("error")) {
-                                    Toast.makeText(Signup.this, jsonResponse.getString("error"), Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+        // Create an HTTP request (POST) to the server for registration
+        StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.113:8000/api/register",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Handle the server response here (successful registration or failure)
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if (jsonResponse.has("success")) {
+                                Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Signup.this, signinn.class));
+                            } else if (jsonResponse.has("error")) {
+                                Toast.makeText(Signup.this, jsonResponse.getString("error"), Toast.LENGTH_LONG).show();
                             }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(Signup.this, "Erreur de connexion au serveur: " + error.getMessage(), Toast.LENGTH_LONG).show();
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-            ) {
-                @Override
-                public byte[] getBody() {
-                    return jsonRequest.toString().getBytes();
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Signup.this, "Erreur de connexion au serveur: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        signinButton.setText(error.getMessage());
+                    }
                 }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                return params; // Pass the HashMap as the request parameters
+            }
+        };
 
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-            };
-
-            // Ajoutez la demande à la file d'attente de Volley
-            RequestQueue queue = Volley.newRequestQueue(this);
-            queue.add(request);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        // Add the request to the Volley request queue
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
+
 // ...
 
 

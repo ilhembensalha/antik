@@ -1,28 +1,23 @@
 package com.example.antik;
 
-
+import retrofit2.Response;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.antik.R;
-import com.example.antik.signinn;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
 
 public class Signup extends AppCompatActivity {
 
@@ -51,68 +46,86 @@ public class Signup extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(Signup.this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Effectuez une demande HTTP vers le serveur pour l'inscription
+                    // Log to verify the click event
+                    Log.d("Signup", "Signup button clicked");
                     registerUser(email, password);
                 }
             }
         });
-
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Signup.this, signinn.class));
+                //startActivity(new Intent(Signup.this, signinn.class));
             }
         });
     }
 
-    // ...
+    // Inside your Signup activity
 
     private void registerUser(String email, String password) {
-        // Create a HashMap for the parameters
-        final HashMap<String, String> params = new HashMap<>();
-        params.put("name", "ilhem");
-        params.put("email", email);
-        params.put("password", password);
+        ApiService apiService = ApiClient.getApiService();
 
-        // Create an HTTP request (POST) to the server for registration
-        StringRequest request = new StringRequest(Request.Method.POST, "https://192.168.1.113:8000/api/register",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Handle the server response here (successful registration or failure)
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            if (jsonResponse.has("success")) {
-                                Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Signup.this, signinn.class));
-                            } else if (jsonResponse.has("error")) {
-                                Toast.makeText(Signup.this, jsonResponse.getString("error"), Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        // Create a Map to hold the POST parameters
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("name", "ilhem");
+        parameters.put("email", email);
+        parameters.put("password", password);
+
+        Call<ApiResponse> call = apiService.registerUser(parameters);
+
+        // Add the token to the headers
+        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse apiResponse = response.body();
+                    if (apiResponse != null && apiResponse.getSuccess() != null) {
+                        Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
+
+                    } else if (apiResponse.getError() != null) {
+                        Toast.makeText(Signup.this, apiResponse.getError(), Toast.LENGTH_LONG).show();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Signup.this, "Erreur de connexion au serveur: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                        signinButton.setText(error.getMessage());
+                } else {
+                    int responseCode = response.code();
+                    Log.e("Response Code", String.valueOf(responseCode));
+                    Toast.makeText(Signup.this, "Erreur 2, Response Code: " + responseCode, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                // Try to parse the exception message as a JSON object
+                String jsonResponse = t.getMessage();
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonResponse);
+                    String errorMessage = jsonObject.getString("message");
+
+                    // Display a Toast message with the extracted error message
+                    Toast.makeText(Signup.this, "Erreur 2: " + errorMessage, Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    // If there's a JSONException, check if the exception message starts with "{"
+                    if (jsonResponse != null && jsonResponse.startsWith("{")) {
+                        // Try to parse the exception message again as a JSON object
+                        try {
+                            JSONObject jsonObject = new JSONObject(jsonResponse);
+                            String errorMessage = jsonObject.getString("message");
+
+                            // Display a Toast message with the extracted error message
+                            Toast.makeText(Signup.this, "Erreur 2: " + errorMessage, Toast.LENGTH_LONG).show();
+                        } catch (JSONException e2) {
+                            // Display a Toast message with the default error message
+                            Toast.makeText(Signup.this, "Erreur 2, JSONException: " + e2.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        // Display a Toast message with the default error message
+                        Toast.makeText(Signup.this, "Erreur 2, JSONException: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                return params; // Pass the HashMap as the request parameters
             }
-        };
+        });
 
-        // Add the request to the Volley request queue
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(request);
+
     }
-
-// ...
 
 
 }

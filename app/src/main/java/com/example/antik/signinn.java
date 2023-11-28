@@ -34,7 +34,7 @@ public class signinn extends AppCompatActivity {
     private EditText loginemail, loginPassword;
     private Button loginButton;
     private TextView signupRedirectText, forgot_password;
-    private String token;
+    private String token ,id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,18 +121,21 @@ public class signinn extends AppCompatActivity {
 
                 // Extract the token from the JSON object
                 String token = null;
+                String id = null;
                 try {
                     JSONObject jsonObject = new JSONObject(responseString);
                     JSONObject successObject = jsonObject.getJSONObject("success");
                     token = successObject.getString("token");
+                    id = successObject.getString("id");
                     Log.i("API token", token);
+                    Log.i("API id", id);
                 } catch (JSONException e) {
                     Log.e("API Call Error", "Error 3, JSONException: " + e.getMessage());
                 }
 
                 // Save the token in Shared Preferences
                 if (token != null) {
-                    saveTokenInSharedPreferences(token);
+                    saveTokenInSharedPreferences(token,id);
                 }
                 Intent intent = new Intent(signinn.this, MainActivity.class);
                 startActivity(intent);
@@ -148,10 +151,13 @@ public class signinn extends AppCompatActivity {
 
 
     }
-    private void saveTokenInSharedPreferences(String token) {
+    private void saveTokenInSharedPreferences(String token,String id) {
         SharedPreferences sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
+        editor.putString("id", id);
+        Log.e("shared preferences", "enregistre " +sharedPreferences.getString("token", token));
+        Log.e("shared preferences", "enregistre " +sharedPreferences.getString("id", id));
         editor.apply();
     }
 }

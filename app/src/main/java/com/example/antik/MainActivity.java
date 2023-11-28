@@ -7,8 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private String token ,id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, signinn.class);
                 startActivity(intent);
+                SharedPreferences preferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                Log.e("shared preferences", "non vide " +preferences.getString("token",token));
+                Log.e("shared preferences", "non vide " +preferences.getString("id",id));
+                editor.apply();
+                Log.e("shared preferences", "vide " +preferences.getString("token",token));
+                Log.e("shared preferences", "vide " +preferences.getString("id",id));
                 break;
         }
 
@@ -83,4 +95,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+
 }

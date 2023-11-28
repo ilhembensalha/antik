@@ -1,5 +1,6 @@
 package com.example.antik;
 
+import retrofit2.Callback;
 import retrofit2.Response;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,8 +65,6 @@ public class Signup extends AppCompatActivity {
         });
     }
 
-    // Inside your Signup activity
-
     private void registerUser(String email, String password) {
         ApiService apiService = ApiClient.getApiService();
 
@@ -71,61 +74,55 @@ public class Signup extends AppCompatActivity {
         parameters.put("email", email);
         parameters.put("password", password);
 
-        Call<ApiResponse> call = apiService.registerUser(parameters);
+        // Convert the Map into a JSON object
+        Gson gson = new Gson();
+        String jsonParameters = gson.toJson(parameters);
+
+        // Pass the JSON object as the @Body parameter
+        Call<JsonObject> call = apiService.registerUser(parameters);
 
         // Add the token to the headers
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        apiService.registerUser(parameters).enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                if (response.isSuccessful()) {
-                    ApiResponse apiResponse = response.body();
-                    if (apiResponse != null && apiResponse.getSuccess() != null) {
-                        Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
-
-                    } else if (apiResponse.getError() != null) {
-                        Toast.makeText(Signup.this, apiResponse.getError(), Toast.LENGTH_LONG).show();
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (!response.isSuccessful()) {
+                    try {
+                        Log.e("API Call Error", "Error 2, JSONException: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } else {
-                    int responseCode = response.code();
-                    Log.e("Response Code", String.valueOf(responseCode));
-                    Toast.makeText(Signup.this, "Erreur 2, Response Code: " + responseCode, Toast.LENGTH_LONG).show();
+                    return;
                 }
+
+                String responseString = response.body().toString();
+                Log.i("API Response", responseString);
+                Intent intent = new Intent(Signup.this, signinn.class);
+                startActivity(intent);
             }
 
             @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
-                // Try to parse the exception message as a JSON object
-                String jsonResponse = t.getMessage();
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonResponse);
-                    String errorMessage = jsonObject.getString("message");
-
-                    // Display a Toast message with the extracted error message
-                    Toast.makeText(Signup.this, "Erreur 2: " + errorMessage, Toast.LENGTH_LONG).show();
-                } catch (JSONException e) {
-                    // If there's a JSONException, check if the exception message starts with "{"
-                    if (jsonResponse != null && jsonResponse.startsWith("{")) {
-                        // Try to parse the exception message again as a JSON object
-                        try {
-                            JSONObject jsonObject = new JSONObject(jsonResponse);
-                            String errorMessage = jsonObject.getString("message");
-
-                            // Display a Toast message with the extracted error message
-                            Toast.makeText(Signup.this, "Erreur 2: " + errorMessage, Toast.LENGTH_LONG).show();
-                        } catch (JSONException e2) {
-                            // Display a Toast message with the default error message
-                            Toast.makeText(Signup.this, "Erreur 2, JSONException: " + e2.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        // Display a Toast message with the default error message
-                        Toast.makeText(Signup.this, "Erreur 2, JSONException: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("API Call Error", "Error 1, Call failed: " + t.getMessage());
             }
         });
 
 
     }
-
+    private void checkResponse(Response<ApiResponse> response) {
+        if (response.isSuccessful()) {
+            ApiResponse apiResponse = response.body();
+            if (apiResponse != null && apiResponse.getSuccess() != null) {
+                Log.e("apiResponse.getSuccess() ", String.valueOf(apiResponse.getSuccess() ));
+                Toast.makeText(Signup.this, "Inscription réussie", Toast.LENGTH_SHORT).show();
+            } else if (apiResponse.getError() != null) {
+                Log.e("apiResponse.getError()", String.valueOf(apiResponse.getError()));
+                Toast.makeText(Signup.this, apiResponse.getError(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            int responseCode = response.code();
+            Log.e("Response Code", String.valueOf(responseCode));
+            Toast.makeText(Signup.this, "Erreur 2, Response Code: " + responseCode, Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

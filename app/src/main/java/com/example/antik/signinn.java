@@ -2,29 +2,39 @@ package com.example.antik;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class signinn extends AppCompatActivity {
     private EditText loginemail, loginPassword;
     private Button loginButton;
     private TextView signupRedirectText, forgot_password;
-    private String serverUrl = "https://192.168.1.113:8000/"; // Remplacez par l'URL de votre API distante
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +54,7 @@ public class signinn extends AppCompatActivity {
                 String password = loginPassword.getText().toString();
 
                 // Effectuez une demande HTTP vers votre API distante pour l'authentification
-                authenticateUser(email, password);
+                loginUser(email, password);
             }
         });
 
@@ -77,56 +87,71 @@ public class signinn extends AppCompatActivity {
         });
     }
 
-    private void authenticateUser(String email, String password) {
-        try {
-            JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("email", email);
-            jsonRequest.put("password", password);
+    private void loginUser(String email, String password) {
+        ApiService apiService = ApiClient.getApiServicein();
+// Create a Map to hold the POST parameters
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("email", email);
+        parameters.put("password", password);
 
-            // Créez une demande HTTP (POST) vers votre API distante pour l'authentification
-            StringRequest request = new StringRequest(Request.Method.POST, serverUrl + "api/login", // Utilisez la route d'authentification
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                if (jsonResponse.has("success")) {
-                                    // Authentification réussie
-                                    Toast.makeText(signinn.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(signinn.this, MainActivity.class));
-                                    finish();
-                                } else if (jsonResponse.has("error")) {
-                                    // Authentification échouée
-                                    Toast.makeText(signinn.this, jsonResponse.getString("error"), Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(signinn.this, "Erreur de connexion au serveur: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+        // Convert the Map into a JSON object
+        Gson gson = new Gson();
+        String jsonParameters = gson.toJson(parameters);
+
+        // Pass the JSON object as the @Body parameter
+        Call<JsonObject> call = apiService.loginUser(parameters);
+
+        // Add the token to the headers
+        apiService.loginUser(parameters).enqueue(new Callback<JsonObject>() {
+
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (!response.isSuccessful()) {
+                    try {
+                        Log.e("API Call Error", "Error 2, JSONException: " + response.errorBody().string());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-            ) {
-                @Override
-                public byte[] getBody() {
-                    return jsonRequest.toString().getBytes();
+                    return;
                 }
 
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-            };
+                String responseString = response.body().toString();
+                Log.i("API Response", responseString);
 
-            // Ajoutez la demande à la file d'attente de Volley
-            RequestQueue queue = Volley.newRequestQueue(this);
-            queue.add(request);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                // Extract the token from the JSON object
+                String token = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(responseString);
+                    JSONObject successObject = jsonObject.getJSONObject("success");
+                    token = successObject.getString("token");
+                    Log.i("API token", token);
+                } catch (JSONException e) {
+                    Log.e("API Call Error", "Error 3, JSONException: " + e.getMessage());
+                }
+
+                // Save the token in Shared Preferences
+                if (token != null) {
+                    saveTokenInSharedPreferences(token);
+                }
+                Intent intent = new Intent(signinn.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(signinn.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+
+        });
+
+
+    }
+    private void saveTokenInSharedPreferences(String token) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.apply();
     }
 }

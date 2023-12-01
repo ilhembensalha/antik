@@ -34,7 +34,7 @@ public class signinn extends AppCompatActivity {
     private EditText loginemail, loginPassword;
     private Button loginButton;
     private TextView signupRedirectText, forgot_password;
-    private String token ,id;
+    private String token ,id,name,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,11 +122,15 @@ public class signinn extends AppCompatActivity {
                 // Extract the token from the JSON object
                 String token = null;
                 String id = null;
+                String name = null;
+                String email = null;
                 try {
                     JSONObject jsonObject = new JSONObject(responseString);
                     JSONObject successObject = jsonObject.getJSONObject("success");
                     token = successObject.getString("token");
                     id = successObject.getString("id");
+                    name = successObject.getString("name");
+                    email = successObject.getString("email");
                     Log.i("API token", token);
                     Log.i("API id", id);
                 } catch (JSONException e) {
@@ -135,7 +139,7 @@ public class signinn extends AppCompatActivity {
 
                 // Save the token in Shared Preferences
                 if (token != null) {
-                    saveTokenInSharedPreferences(token,id);
+                    saveTokenInSharedPreferences(token,id,name,email);
                 }
                 Intent intent = new Intent(signinn.this, MainActivity.class);
                 startActivity(intent);
@@ -151,11 +155,13 @@ public class signinn extends AppCompatActivity {
 
 
     }
-    private void saveTokenInSharedPreferences(String token,String id) {
+    private void saveTokenInSharedPreferences(String token,String id,String name,String email) {
         SharedPreferences sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
         editor.putString("id", id);
+        editor.putString("name", name);
+        editor.putString("email", email);
         Log.e("shared preferences", "enregistre " +sharedPreferences.getString("token", token));
         Log.e("shared preferences", "enregistre " +sharedPreferences.getString("id", id));
         editor.apply();

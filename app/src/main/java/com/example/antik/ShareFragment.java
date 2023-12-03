@@ -200,8 +200,9 @@ public class ShareFragment extends Fragment {
             FileUtils.copyInputStreamToFile(inputStream, imageFile);
 
             // Create a request body with the image file
+
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), imageFile);
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar", "avatar.jpg", requestBody);
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("avatar",  imageFile.getName(), requestBody);
 
             // Call the API service to update the profile image
             ApiService apiService = ApiClient.getApiService();

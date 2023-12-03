@@ -47,8 +47,9 @@ public interface ApiService {
             @Part("description") RequestBody description,
             @Part MultipartBody.Part image,
             @Part("prix") RequestBody prix,
-            @Part("location") RequestBody location,
             @Part("livraison") RequestBody livraison,
+            @Part("location") RequestBody location,
+
             @Part("cat_id") RequestBody cat_id,
             @Part("user_id") RequestBody user_id
     );

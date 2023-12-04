@@ -234,10 +234,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    // The request was successful, navigate to the Home fragment
-                    Fragment_Home fragmentHome = new Fragment_Home();
+                    annoncesallFragment annoncesall = new annoncesallFragment();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_container, fragmentHome); // Replace R.id.fragment_container with the ID of your fragment container
+                    transaction.replace(R.id.fragment_container, annoncesall); // Replace R.id.fragment_container with the ID of your fragment container
                     transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
                     transaction.commit();
                 } else {

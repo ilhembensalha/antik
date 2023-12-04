@@ -56,4 +56,19 @@ public interface ApiService {
     // Define the endpoint for getting the list of categories
     @GET("categories")
     Call<List<Categorie>> getCategories();
+
+    @GET("annonces")
+    Call<ApiService.ApiResponse> getAnnonces();
+    class ApiResponse {
+        int status;
+        List<Annonce.Annoncee> annonces;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public List<Annonce.Annoncee> getAnnonces() {
+            return annonces;
+        }
+    }
 }

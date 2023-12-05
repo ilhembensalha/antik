@@ -26,10 +26,10 @@ import retrofit2.Call;
 
 public class Signup extends AppCompatActivity {
 
-    private EditText signupEmail, signupPassword;
+    private EditText signupEmail, signupPassword,confirmpassword;
     private Button signupButton;
     private TextView signinButton;
-    private String email, password;
+    private String email, password,confpassword;
 
 
     @Override
@@ -41,15 +41,17 @@ public class Signup extends AppCompatActivity {
         signupPassword = findViewById(R.id.signup_password);
         signupButton = findViewById(R.id.signup_button);
         signinButton = findViewById(R.id.loginRedirectText);
+        confirmpassword =findViewById(R.id.confirmpassword);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 email = signupEmail.getText().toString().trim();
                 password = signupPassword.getText().toString().trim();
+                confpassword = confirmpassword.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(Signup.this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
+                if (email.isEmpty() || password.isEmpty()|| !confpassword.equals(password) ) {
+                    Toast.makeText(Signup.this, "Email and password cannot be empty and password equals confirm password", Toast.LENGTH_SHORT).show();
                 } else {
                     // Log to verify the click event
                     Log.d("Signup", "Signup button clicked");

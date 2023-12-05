@@ -103,7 +103,18 @@
                         android:drawablePadding="8dp"
                         android:inputType="textPassword"/>
 
-
+                            <EditText
+                                android:id="@+id/confirmpassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_below="@id/passwordEditText"
+                                android:background="@drawable/custom_edittext"
+                                android:layout_marginTop="20dp"
+                                android:hint="confirm password "
+                                android:drawableLeft="@drawable/ic_baseline_lock_24_foreground"
+                                android:textColor="@color/purple_500"
+                                android:drawablePadding="8dp"
+                                android:inputType="textPassword"/>
                     <Button
                         android:id="@+id/updateButton"
                         android:layout_width="match_parent"

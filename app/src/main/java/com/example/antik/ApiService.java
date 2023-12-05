@@ -71,4 +71,6 @@ public interface ApiService {
             return annonces;
         }
     }
+    @GET("annonces/{id}")
+    Call<AnnonceDetails> getAnnonceDetails(@Path("id") int id);
 }

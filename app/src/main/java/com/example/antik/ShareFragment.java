@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
 
@@ -45,9 +46,9 @@ import retrofit2.Response;
 
 public class ShareFragment extends Fragment {
 
-    private EditText nameEditText, emailEditText, passwordEditText;
+    private EditText nameEditText, emailEditText, passwordEditText,confirmpassword;
     private Button updateButton;
-    private String  id, name, email;
+    private String  id, name, email,confirpassword;
     private ImageView imageViewProfile;
     private Uri selectedImageUri;
     private Bitmap bitmap;
@@ -70,6 +71,7 @@ public class ShareFragment extends Fragment {
         nameEditText = view.findViewById(R.id.nameEditText);
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
+        confirmpassword = view.findViewById(R.id.confirmpassword);
         updateButton = view.findViewById(R.id.updateButton);
         SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
 
@@ -167,7 +169,11 @@ public class ShareFragment extends Fragment {
             ApiService apiService = ApiClient.getedit();
             SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
             id = preferences.getString("id", "");
-
+            confirpassword = confirmpassword.getText().toString().trim();
+            if (!password.isEmpty()|| !confirpassword.equals(password) ) {
+                Toast.makeText(getContext(), " password must match confirm password", Toast.LENGTH_SHORT).show();
+                return;
+            }
             // Assurez-vous d'ajuster l'URL en fonction de votre route Laravel
             Call<JsonObject> call = apiService.editProfile(Integer.parseInt(id), user);
             call.enqueue(new Callback<JsonObject>() {

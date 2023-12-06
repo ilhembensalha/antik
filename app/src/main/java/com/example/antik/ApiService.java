@@ -59,6 +59,7 @@ public interface ApiService {
 
     @GET("annonces")
     Call<ApiService.ApiResponse> getAnnonces();
+
     class ApiResponse {
         int status;
         List<Annonce.Annoncee> annonces;
@@ -73,4 +74,10 @@ public interface ApiService {
     }
     @GET("annonces/{id}")
     Call<AnnonceDetails> getAnnonceDetails(@Path("id") int id);
+
+    @GET("profile/{id}")
+    Call<User> getUserProfile(@Path("id") int id);
+
+    @GET("categories/{id}")
+    Call<Categorie> getCat(@Path("id") int id);
 }

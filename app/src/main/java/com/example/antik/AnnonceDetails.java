@@ -19,6 +19,11 @@ public class AnnonceDetails {
     private int categoryId;
     @SerializedName("user_id")
     private int userId;
+    @SerializedName("statut")
+    private String statut;
+    @SerializedName("created_at")
+    private String created_at;
+
     @SerializedName("image")
     private ImageDetails image;
 
@@ -36,12 +41,22 @@ public class AnnonceDetails {
         return titre;
     }
 
+    public String getStatut() {
+        return statut;
+    }
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
     public void setTitre(String titre) {
         this.titre = titre;
     }
 
     public String getDescription() {
         return description;
+    }
+    public String getCreated_at() {
+        return created_at;
     }
 
     public void setDescription(String description) {

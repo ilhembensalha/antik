@@ -3,6 +3,8 @@ package com.example.antik;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -14,11 +16,13 @@ import com.example.antik.Annonce;
 import com.example.antik.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHolder> {
+public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHolder> implements Filterable {
 
     private List<Annonce.Annoncee> annonces;
+    private List<Annonce.Annoncee> filteredList;
     private PopupWindow currentPopup;
 
     public void setCurrentPopup(PopupWindow popup) {
@@ -37,7 +41,8 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
     }
    public AnnonceAdapter(List<Annonce.Annoncee> annonces) {
         this.annonces = annonces;
-    }
+         this.filteredList = new ArrayList<>(annonces);
+   }
 
 
     @NonNull
@@ -49,11 +54,11 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Annonce.Annoncee annonce = annonces.get(position);
-
+        //Annonce.Annoncee annonce = annonces.get(position);
+        Annonce.Annoncee annonce = filteredList.get(position);
         holder.textViewTitre.setText(annonce.getTitre());
         holder.textViewDescription.setText(annonce.getDescription());
-        holder.text_view_prix.setText(String.valueOf(annonce.getPrix()));
+        holder.text_view_prix.setText(String.valueOf(annonce.getPrix()+ " DT"));
         // Load and display the image using Picasso
         Picasso.get().load(annonce.getImage().getUrl()).into(holder.imageView);
 
@@ -69,10 +74,7 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return annonces.size();
-    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitre;
@@ -94,4 +96,43 @@ public class AnnonceAdapter extends RecyclerView.Adapter<AnnonceAdapter.ViewHold
             currentPopup.dismiss();
         }
     }
+    @Override
+    public int getItemCount() {
+        return filteredList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                List<Annonce.Annoncee> filteredList = new ArrayList<>();
+                if (filterPattern.isEmpty()) {
+                    filteredList.addAll(annonces);
+                } else {
+                    for (Annonce.Annoncee annonce : annonces) {
+                        if (annonce.getTitre().toLowerCase().contains(filterPattern) ||
+                                annonce.getDescription().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(annonce);
+                        }
+                    }
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredList.clear();
+                filteredList.addAll((List<Annonce.Annoncee>) results.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+
 }

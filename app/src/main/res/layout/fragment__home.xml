@@ -6,55 +6,16 @@
     tools:context=".Fragment_Home">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/medium">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LAMP"
-                android:textColor="@color/textColor"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/xsmall"
-                android:text="Deft accessoriesr"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/grey_circular_border"
-            android:padding="@dimen/small"
-            android:src="@drawable/heart" />
-
-
-    </RelativeLayout>
 
     <!--Body-->
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/lamp" />
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -67,70 +28,41 @@
                 android:orientation="vertical"
                 android:padding="@dimen/small">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TABLE LAMP"
-                    android:textColor="@color/textColor"
-                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="350dp"
                     android:layout_marginTop="@dimen/small">
 
-                    <!--  <ImageView
-                          android:layout_width="20dp"
-                          android:layout_height="20dp"
-                          android:padding="@dimen/xsmall"
-                          android:src="@drawable/star_clr" />
 
-                      <ImageView
-                          android:layout_width="20dp"
-                          android:layout_height="20dp"
-                          android:padding="@dimen/xsmall"
-                          android:src="@drawable/star_clr" />
+                    <LinearLayout
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:padding="@dimen/xsmall"
-                        android:src="@drawable/star_clr" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:padding="@dimen/xsmall"
-                        android:src="@drawable/star_clr" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:padding="@dimen/xsmall"
-                        android:src="@drawable/star_grey" />-->
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="19/06/2023"
-                        android:textColor="@color/textColor"
-                        android:textSize="14sp" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:divider="@android:color/darker_gray"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/viewPager"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:text="90 dt"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
+
 
         </RelativeLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/violet_circular_border"
@@ -165,8 +97,12 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/productsContainer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/medium"
+                    android:layout_margin="5dp">
 
                     <LinearLayout
                         android:layout_width="160dp"

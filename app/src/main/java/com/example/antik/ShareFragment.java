@@ -95,8 +95,6 @@ public class ShareFragment extends Fragment {
         // Créez une instance de votre ApiService
         ApiService apiService = ApiClient.getApiService();
 
-// Remplacez 'YOUR_API_ENDPOINT' par l'URL réelle de votre API Laravel
-// et 'userId' par l'ID réel de l'utilisateur dont vous souhaitez récupérer l'image
         String apiUrl = "getUserImage/" + id;
 
 // Effectuez l'appel à l'API
@@ -269,30 +267,6 @@ public class ShareFragment extends Fragment {
                     }
                 }
             });
-/*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("ActivityResult", "Request Code: " + requestCode + ", Result Code: " + resultCode);
-        Log.d("bb", "dddc");
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            selectedImageUri = data.getData();
-            if (selectedImageUri == null) {
-                Log.e("uploadImageToServer", "Selected image URI is null");
-                return;
-            }
-            Log.d("SelectedImageUri", selectedImageUri.toString());
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), selectedImageUri);
-                imageViewProfile.setImageBitmap(bitmap);
-                Log.d("hello", selectedImageUri.toString());
-                uploadImageToServer(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-*/
 
 }

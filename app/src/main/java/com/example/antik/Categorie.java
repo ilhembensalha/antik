@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Categorie {
 
-        @SerializedName("id")
+
         private int id;
 
         @SerializedName("nomcat")
@@ -16,8 +16,12 @@ public class Categorie {
             this.id = id;
             this.nomcat = nomcat;
         }
+    public Categorie( String nomcat) {
+        this.nomcat = nomcat;
+    }
 
-        public int getId() {
+
+    public int getId() {
             return id;
         }
 

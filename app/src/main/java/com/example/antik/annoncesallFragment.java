@@ -1,5 +1,8 @@
 package com.example.antik;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -282,6 +285,7 @@ public class annoncesallFragment extends Fragment  {
         Picasso.get().load(details.getImage().getUrl()).into(imageView);
         // Button to close the popup
         Button closeButton = popupView.findViewById(R.id.closeButton);
+        Button send = popupView.findViewById(R.id.send);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,6 +293,24 @@ public class annoncesallFragment extends Fragment  {
                 popupWindow.dismiss();
             }
         });
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppSettings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("iduser", String.valueOf(userId));
+                editor.apply();
+
+                messagerie messagerie = new messagerie();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, messagerie); // Replace R.id.fragment_container with the ID of your fragment container
+                transaction.addToBackStack(null); // Optional: Add the transaction to the back stack
+                transaction.commit();
+                popupWindow.dismiss();
+            }
+
+        });
+
 
         // Set dismiss listener
         popupWindow.setOnDismissListener(() -> {

@@ -14,147 +14,177 @@
         app:cardElevation="20dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_width="371dp"
+            android:layout_height="670dp"
             android:layout_gravity="center_horizontal"
-            android:padding="24dp"
-            android:background="@drawable/custom_edittext">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/small">
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="25dp"
-        android:layout_marginEnd="@dimen/small">
+            android:background="@drawable/custom_edittext"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <ImageView
-            android:id="@+id/imageViewProfile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="fitXY"/>
-    </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-               >
-            <TextView
-                android:id="@+id/userTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginLeft="5dp"
-               />
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="9sp"
-                android:layout_margin="5dp"
-                />
-            </LinearLayout>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:padding="@dimen/small">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/small"
+                    app:cardCornerRadius="25dp">
 
-            <!-- ImageView para la imagen del anuncio -->
-            <ImageView
-                android:id="@+id/popupImageView"
-                android:layout_width="300dp"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="16dp"/>
+                    <ImageView
+                        android:id="@+id/imageViewProfile"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="fitXY" />
+                </androidx.cardview.widget.CardView>
 
-            <!-- RelativeLayout para los detalles del anuncio -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/medium">
-
-                <!-- LinearLayout para el título y la descripción -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/small">
-
-                    <!-- TextView para el título -->
-                    <TextView
-                        android:id="@+id/popupTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Popup Title"
-                        android:textStyle="bold"/>
-
-                    <!-- TextView para la descripción -->
-                    <TextView
-                        android:id="@+id/popupDescriptionTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Popup Description"/>
-
-                    <!-- TextView para el precio -->
-                    <TextView
-                        android:id="@+id/prixx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Price: $0.00"
-                        android:textStyle="bold"/>
-
-                    <!-- TextView para la ubicación -->
-                    <TextView
-                        android:id="@+id/locationTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Location: Unknown"/>
-
-                    <!-- TextView para la opción de entrega -->
-                    <TextView
-                        android:id="@+id/livraisonTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delivery: Unknown"/>
-
-                    <!-- TextView para la categoría -->
-                    <TextView
-                        android:id="@+id/categoryTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/statutTextView"
+                        android:id="@+id/userTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginLeft="5dp"
+                        android:textSize="20sp" />
 
-                    <Button
-                        android:id="@+id/closeButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:textSize="18sp"
-                        android:layout_marginTop="30dp"
-                        android:backgroundTint="@color/lavender"
-                        app:cornerRadius = "20dp"
-                        android:text="Close"
-                        />
-
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="9sp" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <!-- Button para cerrar/descartar el popup -->
+            <LinearLayout
+                android:layout_width="322dp"
+                android:layout_height="472dp"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            </RelativeLayout>
-        </LinearLayout>
+                <!-- ImageView para la imagen del anuncio -->
+
+                <!-- RelativeLayout para los detalles del anuncio -->
+                <ImageView
+                    android:id="@+id/popupImageView"
+                    android:layout_width="275dp"
+                    android:layout_height="196dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="centerCrop" />
+
+                <RelativeLayout
+                    android:layout_width="277dp"
+                    android:layout_height="222dp"
+                    android:padding="9dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="15dp"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+
+                        <TextView
+                            android:id="@+id/popupTitleTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Article:"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/popupDescriptionTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Description:"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <!-- TextView para el precio -->
+                        <TextView
+                            android:id="@+id/prixx"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Prix: "
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/locationTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Localisation:"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/livraisonTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Livraison :"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/buttonAppeler"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="3dp"
+                                android:backgroundTint="#E79EEA"
+                                android:onClick="onButtonClick"
+                                android:text="Appeler"
+                                app:cornerRadius="20dp" />
+
+                            <Button
+                                android:id="@+id/buttonMessage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginRight="5dp"
+                                android:backgroundTint="#E79EEA"
+                                android:onClick="onButtonClick"
+                                android:text="Message"
+                                app:cornerRadius="20dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/closeButton"
+                android:layout_width="286dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="18dp"
+                android:backgroundTint="@color/lavender"
+                android:text="Close"
+                android:textSize="18sp"
+                app:cornerRadius="50dp" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>
 

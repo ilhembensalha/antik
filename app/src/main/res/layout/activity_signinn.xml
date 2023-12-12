@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/pagebkg"
+    android:id="@+id/signin"
     tools:context=".signinn">
 
     <androidx.cardview.widget.CardView

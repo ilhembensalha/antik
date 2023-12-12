@@ -19,6 +19,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface ApiService {
@@ -80,4 +81,16 @@ public interface ApiService {
 
     @GET("categories/{id}")
     Call<Categorie> getCat(@Path("id") int id);
+
+
+    @GET("messages")
+    Call<List<Message>> getMessages(@Query("senderId") int senderId, @Query("receiverId") int receiverId);
+
+    @Multipart
+    @POST("messages/send")
+    Call<ResponseBody> sendMessage(
+            @Part("receiver_id") RequestBody receiver_id,
+           @Part("sender_id") RequestBody sender_id,
+            @Part("content") RequestBody content);
+
 }

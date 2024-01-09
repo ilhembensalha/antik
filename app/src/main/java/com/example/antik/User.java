@@ -14,6 +14,8 @@ public class User {
     private String password;
     @SerializedName("avatar")  // Add this line for the image URL field
     private String avatar;
+    @SerializedName("phone")
+    private String phone;
 
     public User(int id, String name, String email, String password, String avatar) {
         this.id = id;
@@ -34,7 +36,13 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
+   /* public User(String name, String email, String password,String phone) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+    }
+*/
     public User() {
     }
 
@@ -54,6 +62,18 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
 
     public String getEmail() {
         return email;

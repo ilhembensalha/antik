@@ -49,7 +49,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintTop_toBottomOf="@+id/imageView"
-                        app:srcCompat="@drawable/profile" />
+                       />
 
             </androidx.cardview.widget.CardView>
 
@@ -101,8 +101,9 @@
                                 android:drawableLeft="@drawable/ic_baseline_person_24_foreground"
                                 android:hint="Email"
                                 android:textColor="@color/purple_500" />
+
                             <EditText
-                                android:id="@+id/numero"
+                                android:id="@+id/phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_below="@id/passwordEditText"

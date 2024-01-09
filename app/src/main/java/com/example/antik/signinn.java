@@ -34,7 +34,7 @@ public class signinn extends AppCompatActivity {
     private EditText loginemail, loginPassword;
     private Button loginButton;
     private TextView signupRedirectText, forgot_password;
-    private String token ,id,name,email;
+    private String token ,id,name,email,phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +124,7 @@ public class signinn extends AppCompatActivity {
                 String id = null;
                 String name = null;
                 String email = null;
+                String phone = null;
                 try {
                     JSONObject jsonObject = new JSONObject(responseString);
                     JSONObject successObject = jsonObject.getJSONObject("success");
@@ -131,6 +132,7 @@ public class signinn extends AppCompatActivity {
                     id = successObject.getString("id");
                     name = successObject.getString("name");
                     email = successObject.getString("email");
+                    phone = successObject.getString("phone");
                     Log.i("API token", token);
                     Log.i("API id", id);
                 } catch (JSONException e) {
@@ -139,7 +141,7 @@ public class signinn extends AppCompatActivity {
 
                 // Save the token in Shared Preferences
                 if (token != null) {
-                    saveTokenInSharedPreferences(token,id,name,email);
+                    saveTokenInSharedPreferences(token,id,name,email,phone);
                 }
                 Intent intent = new Intent(signinn.this, MainActivity.class);
                 startActivity(intent);
@@ -155,13 +157,14 @@ public class signinn extends AppCompatActivity {
 
 
     }
-    private void saveTokenInSharedPreferences(String token,String id,String name,String email) {
+    private void saveTokenInSharedPreferences(String token,String id,String name,String email,String phone) {
         SharedPreferences sharedPreferences = getSharedPreferences("AppSettings", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
         editor.putString("id", id);
         editor.putString("name", name);
         editor.putString("email", email);
+        editor.putString("phone", phone);
         Log.e("shared preferences", "enregistre " +sharedPreferences.getString("token", token));
         Log.e("shared preferences", "enregistre " +sharedPreferences.getString("id", id));
         editor.apply();

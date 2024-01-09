@@ -111,10 +111,11 @@ public class annoncesallFragment extends Fragment  {
                 if (response.isSuccessful() && response.body() != null) {
                     ApiService.ApiResponse apiResponse = response.body();
                     List<Annonce.Annoncee> annoncesList = apiResponse.getAnnonces();
-                    filteredList = new ArrayList<>();
-                    filteredList.addAll(annoncesList);
+                    if (annoncesList != null) {
+                        filteredList = new ArrayList<>();
+                        filteredList.addAll(annoncesList);
 
-                    annonceAdapter = new AnnonceAdapter(annoncesList);
+                        annonceAdapter = new AnnonceAdapter(annoncesList);
 
                     // Add these lines to set the OnItemClickListener
                     annonceAdapter.setOnItemClickListener(new AnnonceAdapter.OnItemClickListener() {
@@ -126,6 +127,7 @@ public class annoncesallFragment extends Fragment  {
                         }
                     });
                     recyclerView.setAdapter(annonceAdapter);
+                    }
                 } else {
                     Log.e("API Error", "Unsuccessful response");
                 }

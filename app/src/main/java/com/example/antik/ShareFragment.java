@@ -1,6 +1,8 @@
 package com.example.antik;
 
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -46,9 +48,9 @@ import retrofit2.Response;
 
 public class ShareFragment extends Fragment {
 
-    private EditText nameEditText, emailEditText, passwordEditText,confirmpassword;
+    private EditText nameEditText, emailEditText, passwordEditText,confirmpassword,phoneEditText;
     private Button updateButton;
-    private String  id, name, email,confirpassword;
+    private String  id, name, email,confirpassword,phone;
     private ImageView imageViewProfile;
     private Uri selectedImageUri;
     private Bitmap bitmap;
@@ -71,9 +73,10 @@ public class ShareFragment extends Fragment {
         nameEditText = view.findViewById(R.id.nameEditText);
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
+       phoneEditText = view.findViewById(R.id.phone);
         confirmpassword = view.findViewById(R.id.confirmpassword);
         updateButton = view.findViewById(R.id.updateButton);
-        SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+        SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", MODE_PRIVATE);
 
         // Retrieve user details from SharedPreferences
         id = preferences.getString("id", "");
@@ -86,8 +89,8 @@ public class ShareFragment extends Fragment {
                 String name = nameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
-                updateUserDetails(name, email, password);
+                String phone = phoneEditText.getText().toString();
+                updateUserDetails(name, email, password,phone);
             }
         });
 
@@ -149,23 +152,26 @@ public class ShareFragment extends Fragment {
 
         private void getUserDetails() {
             // Get the SharedPreferences using the fragment's context
-            SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+            SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", MODE_PRIVATE);
 
             // Retrieve user details from SharedPreferences
             id = preferences.getString("id", "");
             name = preferences.getString("name", "");
             email = preferences.getString("email", "");
+            phone = preferences.getString("phone", "");
 
 
             // Set the retrieved values to the respective views
             nameEditText.setText(name);
             emailEditText.setText(email);
+           phoneEditText.setText(phone);
+
         }
 
-        private void updateUserDetails(String name, String email, String password) {
-            User user = new User(name, email, password);
+        private void updateUserDetails(String name, String email, String password,String phone) {
+            User user = new User(name, email, password,phone);
             ApiService apiService = ApiClient.getedit();
-            SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+            SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", MODE_PRIVATE);
             id = preferences.getString("id", "");
             confirpassword = confirmpassword.getText().toString().trim();
             if (!password.isEmpty()|| !confirpassword.equals(password) ) {
@@ -179,6 +185,20 @@ public class ShareFragment extends Fragment {
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     if (response.isSuccessful()) {
                         // Mise à jour réussie, mettez à jour la base de données locale et affichez un message
+                        Toast.makeText(getActivity(), "profile update", Toast.LENGTH_SHORT).show();
+                        SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", MODE_PRIVATE);
+
+                        // Set the retrieved values to the respective views
+                        nameEditText.setText(name);
+                        emailEditText.setText(email);
+                        phoneEditText.setText(phone);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("name", name);
+                        editor.putString("email", email);
+                        editor.putString("phone", phone);
+                        Log.e("shared preferences", "enregistre " +preferences.getString("id", id));
+                        editor.apply();
+
                         Log.e("onResponse Code", "success");
                     } else {
                         Log.e("onResponse Code", response.message());
@@ -193,7 +213,7 @@ public class ShareFragment extends Fragment {
         }
 
     private void uploadImageToServer(Bitmap bitmap) {
-        SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+        SharedPreferences preferences = requireContext().getSharedPreferences("AppSettings", MODE_PRIVATE);
         id = preferences.getString("id", "");
 
         File imageFile = new File(requireContext().getCacheDir(), "image.jpg");

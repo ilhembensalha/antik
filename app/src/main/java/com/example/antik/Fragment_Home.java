@@ -116,10 +116,12 @@ public class Fragment_Home<AutoScrollPagerAdapter> extends Fragment {
             public void onResponse(Call<ApiService.ApiResponse> call, Response<ApiService.ApiResponse> response) {
                 if (response.isSuccessful()) {
                     // Parse the response and populate UI
-                    List<Annonce.Annoncee> annonces = response.body().getAnnonces();
-                    populateUII(annonces);
-                    populateUI(annonces);
 
+                        List<Annonce.Annoncee> annonces = response.body().getAnnonces();
+                    if (annonces != null) {
+                        populateUII(annonces);
+                        populateUI(annonces);
+                    }
                 } else {
                     // Handle unsuccessful response
                 }
@@ -135,7 +137,10 @@ public class Fragment_Home<AutoScrollPagerAdapter> extends Fragment {
 
         // Create adapter for ViewPager
         pagerAdapter = new autoscrollpageradapter(requireContext(), annonces);
-        viewPager.setAdapter((PagerAdapter) pagerAdapter);
+
+        if (annonces != null) {
+            viewPager.setAdapter((PagerAdapter) pagerAdapter);
+        }
 
         // Set a timer for automatic scrolling
         Timer timer = new Timer();
@@ -166,54 +171,56 @@ public class Fragment_Home<AutoScrollPagerAdapter> extends Fragment {
 
         // Iterate through annonces and create UI elements
         for (Annonce.Annoncee annoncee : annonces) {
-            // Create a layout for each item
-            LinearLayout itemLayout = new LinearLayout(requireContext());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    dpToPx(160), // Set width as needed
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.setMargins(itemSpacing, 0, itemSpacing, 0); // Add spacing
-            itemLayout.setLayoutParams(layoutParams);
-            itemLayout.setOrientation(LinearLayout.VERTICAL);
-            itemLayout.setPadding(12, 12, 12, 12);
-            itemLayout.setBackgroundResource(R.drawable.white_circular_border);
+            if (annonces != null) {
+                // Create a layout for each item
+                LinearLayout itemLayout = new LinearLayout(requireContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        dpToPx(160), // Set width as needed
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                layoutParams.setMargins(itemSpacing, 0, itemSpacing, 0); // Add spacing
+                itemLayout.setLayoutParams(layoutParams);
+                itemLayout.setOrientation(LinearLayout.VERTICAL);
+                itemLayout.setPadding(12, 12, 12, 12);
+                itemLayout.setBackgroundResource(R.drawable.white_circular_border);
 
-            // Create ImageView for the image
-            ImageView imageView = new ImageView(requireContext());
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    dpToPx(120) // Set height as needed
-            ));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                // Create ImageView for the image
+                ImageView imageView = new ImageView(requireContext());
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        dpToPx(120) // Set height as needed
+                ));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-            // Load image from URL using Picasso
-            Picasso.get().load(annoncee.getImage().getUrl()).into(imageView);
+                // Load image from URL using Picasso
+                Picasso.get().load(annoncee.getImage().getUrl()).into(imageView);
 
-            itemLayout.addView(imageView);
-            // Create TextView for the title
-            TextView titleTextView = new TextView(requireContext());
-            titleTextView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
-            titleTextView.setText(annoncee.getTitre());
-            titleTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor));
-            titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            itemLayout.addView(titleTextView);
+                itemLayout.addView(imageView);
+                // Create TextView for the title
+                TextView titleTextView = new TextView(requireContext());
+                titleTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                ));
+                titleTextView.setText(annoncee.getTitre());
+                titleTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor));
+                titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                itemLayout.addView(titleTextView);
 
-            // Create TextView for the price
-            TextView priceTextView = new TextView(requireContext());
-            priceTextView.setLayoutParams(new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
-            priceTextView.setText("" + annoncee.getPrix()+" DT");
-            priceTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor));
-            priceTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
-            itemLayout.addView(priceTextView);
+                // Create TextView for the price
+                TextView priceTextView = new TextView(requireContext());
+                priceTextView.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                ));
+                priceTextView.setText("" + annoncee.getPrix() + " DT");
+                priceTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor));
+                priceTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+                itemLayout.addView(priceTextView);
 
-            // Add the item layout to the container
-            productsContainer.addView(itemLayout);
+                // Add the item layout to the container
+                productsContainer.addView(itemLayout);
+            }
         }
     }
 
